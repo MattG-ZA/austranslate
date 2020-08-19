@@ -1,14 +1,14 @@
 .App {
-  background: linear-gradient(45deg, hotpink, dodgerblue);
+  background: var(--background);
   background-size: 400% 400%;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  -webkit-animation: colourFlow 20s ease infinite;
-  -moz-animation: colourFlow 20s ease infinite;
-  animation: colourFlow 20s ease infinite;
+  -webkit-animation: colourFlow 15s ease infinite;
+  -moz-animation: colourFlow 15s ease infinite;
+  animation: colourFlow 15s ease infinite;
 }
 
 @-webkit-keyframes colourFlow {

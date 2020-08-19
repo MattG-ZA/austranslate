@@ -3,24 +3,31 @@ import './Input.css'
 import ausFlag from '../../resources/australia-flag-square-icon-64.png'
 import gbFlag from '../../resources/united-kingdom-flag-square-icon-64.png'
 
-const Input = () => {
-    const [flag, setFlag] = useState(ausFlag);
-    const inputEl = useRef(null);
-    const imgEl = useRef(null);
+const Input = (props) => {
+    const { changeBackground } = props
+
+    const [flag, setFlag] = useState(gbFlag)
+    const [flip, setFlip] = useState(true)
+    const [placeholder, setPlaceholder] = useState('Type some English here!')
+    const inputEl = useRef(null)
+    const imgEl = useRef(null)
 
     const changeLanguage = () => {
-        inputEl.current.style.setProperty('--transform', `rotateX(${flag === ausFlag ? 180 : 0}deg)`)
-        imgEl.current.style.setProperty('--transform', `rotateX(${flag === ausFlag ? 180 : 0}deg)`)
+        setFlip(!flip)
+        inputEl.current.style.setProperty('--transform', `rotateX(${flip ? 180 : 0}deg)`)
+        imgEl.current.style.setProperty('--transform', `rotateX(${flip ? 180 : 0}deg)`)
         setTimeout(() => {
-            flag === ausFlag ? setFlag(gbFlag) : setFlag(ausFlag)
+            setPlaceholder(flip ? 'Type some Australian here!' : 'Type some English here!')
+            setFlag(flip ? ausFlag : gbFlag)
         }, 200)
+        changeBackground(flip)
     }
 
     return (<span>
         <input
             ref={inputEl}
             className='input'
-            placeholder='Type some English here...'
+            placeholder={placeholder}
         />
         <img
             ref={imgEl}
@@ -28,6 +35,7 @@ const Input = () => {
             src={flag}
             alt={'flag'}
             onClick={changeLanguage}
+            title={'Translate!'}
         />
     </span>)
 }
